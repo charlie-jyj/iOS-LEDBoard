@@ -78,6 +78,38 @@ https://developer.apple.com/documentation/uikit/uiviewcontroller/1621413-perform
 알맞은 타이밍에 view 가 나타나게 하자
 자동 호출 되는 메서드들이 존재
 
+##### (6) 화면 간 데이터 전달하기
+
+- push, present 되는 view 에 데이터 전달하기
+a. vc2에 label을 IBOutlet으로 등록
+b. vc2에 var name 선언 
+c. vc1 에서 present 되는 viewController 를 instantiate 할 때, vc2 로 다운캐스팅 (as?)
+d. 다운캐스팅 했기 때문에 vc2 객체에서 멤버에 접근할 수 있음, present 하기 전에 값 전달
+e. vc2 에서 적절한 시점에 전달받은 (vc1에 의해 변경된) 변수 값을 화면에 반영 (viewDidLoad)
+
+- pop, dismiss 하며 view 에 데이터 전달하기
+
+*delegate pattern
+iOS에서 자주 사용되는 디자인 패턴
+
+a. Vc2 에서 protocol 을 선언한다. (메세지를 전달하는 sendData 함수를 가진)
+b. Vc2 에서 해당 protocol 을 type으로 하는 delegate 변수를 member 로 선언한다. (Prop) (나는 위임자가 있다라는 표시)
+    메모리 누수 방지를 위해 weak 예약어 포함*
+c. Vc1 에서 present 하기 전에 자신이 위임자임을 밝힌다. Vc2.delegate = self (vc2의 위임자는 나다) 
+d. 위의 과정을 위해서는 protocol을 채택해야 하며, 함수 구현 한다. (전달 받은 메세지를 처리하는)
+e. Dismiss 하기 전에 delegate의 함수를 호출한다 (전달할 메세지를 args 로 전달)
+
+- segueway 로 데이터 전달하기
+
+A. Vc1 에서 prepare 메서드를 override (세그웨이 호출 직전에 자동으로 call)
+B. seque.destination 객체를 vc2 로 다운캐스팅 한 후, 멤버에 접근하여 값을 전달한다.
+
+##### (7) 이미지 asset
+assets.xcassets 를 통해 관리
+1x : 24px
+2x: 48px 
+3x: 72px
+
 
 ##### 3) 새로 배운 것들
 
@@ -85,6 +117,12 @@ https://developer.apple.com/documentation/uikit/uiviewcontroller/1621413-perform
 - 스토리 보드에서 viewcontroller 를 생성한 후에 이를 클래스에 추가할 수 있다.
 - 프로젝트 폴더에서 new file > cocoa touch 파일 생성 > type 을 view controller 로 하는 파일을 생성한 후 > 스토리보드의 identity inspector에서 연결해줄 것
 - 버튼 선택을 통해 화면 이동을 할 경우 해당 버튼 우클릭 드래그 하여 segueway 를 추가할 수 있다.
+- ui object 는 option 키를 누른채로 드래그하면 복사할 수 있다
+- Scene 안에서 목록 선택 후 ctrl c ctrl v 해도 복붙 가능
+- ui object 들을 다중 선택한 후에 stack view 로 묶어 하나의 그룹으로 만들 수 있다 (그룹화)
+- 하나의 버튼에 IBAction을 연결한 후에 다른 버튼들을 같은 함수에 연결할 수 있다. (우클릭+드래그)
+- argument 앞에 있는 underscore :  https://stackoverflow.com/questions/39627106/why-do-i-need-underscores-in-swift (label name: Int) 에서 label 이 생략된 것으로 보면 된다.
+- optional 인데 nil 이면 default 값 주기 : ?? Default value
 
 
 
