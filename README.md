@@ -58,15 +58,15 @@ Popviewcontroller method
 출발지와 도착지 지정
 따로 소스 코드 사용하지 않고 스토리보드로 화면 전환
 
-Action segueway : 출발점이 버튼, 셀 등인 경우 (trigger segueway)
+    - Action segueway : 출발점이 버튼, 셀 등인 경우 (trigger segueway)
 
-Show : navigation controller 가 설정되어 있을 때에는 내비게이션 스택에 목적지 뷰를 push 한다. 오른쪽으로 왼쪽으로 슬라이드 되며 나타나고 뒤로가기 버튼이 생성된다. 
-내비게이션 컨트롤러가 없을 경우 present modally 가 적용된다. 
+    - Show : navigation controller 가 설정되어 있을 때에는 내비게이션 스택에 목적지 뷰를 push 한다. 오른쪽으로 왼쪽으로 슬라이드 되며 나타나고 뒤로가기 버튼이 생성된다. 
+    내비게이션 컨트롤러가 없을 경우 present modally 가 적용된다. 
 
-Show detail : ipad의 경우 master slave 관계의 split 된 화면으로 보여주게 됨
-Present modally : 이전 뷰를 덮으며 새로운 뷰 (프레젠테이션 방식), 하단에서 상단으로 끌어올리며 모달을 만든다.
-Present As popover: iPad 에서 사용, 팝업 창
-custom 
+    - Show detail : ipad의 경우 master slave 관계의 split 된 화면으로 보여주게 됨
+    - Present modally : 이전 뷰를 덮으며 새로운 뷰 (프레젠테이션 방식), 하단에서 상단으로 끌어올리며 모달을 만든다.
+    - Present As popover: iPad 에서 사용, 팝업 창
+    - custom 
 
 https://stackoverflow.com/questions/26287247/what-are-the-differences-between-segues-show-show-detail-present-modally
 
@@ -81,14 +81,15 @@ https://developer.apple.com/documentation/uikit/uiviewcontroller/1621413-perform
 ##### (6) 화면 간 데이터 전달하기
 
 - push, present 되는 view 에 데이터 전달하기
-a. vc2에 label을 IBOutlet으로 등록
-b. vc2에 var name 선언 
-c. vc1 에서 present 되는 viewController 를 instantiate 할 때, vc2 로 다운캐스팅 (as?)
-d. 다운캐스팅 했기 때문에 vc2 객체에서 멤버에 접근할 수 있음, present 하기 전에 값 전달
-e. vc2 에서 적절한 시점에 전달받은 (vc1에 의해 변경된) 변수 값을 화면에 반영 (viewDidLoad)
+    - a. vc2에 label을 IBOutlet으로 등록
+    - b. vc2에 var name 선언 
+    - c. vc1 에서 present 되는 viewController 를 instantiate 할 때, vc2 로 다운캐스팅 (as?)
+    - d. 다운캐스팅 했기 때문에 vc2 객체에서 멤버에 접근할 수 있음, present 하기 전에 값 전달
+    - e. vc2 에서 적절한 시점에 전달받은 (vc1에 의해 변경된) 변수 값을 화면에 반영 (viewDidLoad)
 
 - pop, dismiss 하며 view 에 데이터 전달하기
 
+```
 *delegate pattern
 iOS에서 자주 사용되는 디자인 패턴
 
@@ -98,6 +99,7 @@ b. Vc2 에서 해당 protocol 을 type으로 하는 delegate 변수를 member �
 c. Vc1 에서 present 하기 전에 자신이 위임자임을 밝힌다. Vc2.delegate = self (vc2의 위임자는 나다) 
 d. 위의 과정을 위해서는 protocol을 채택해야 하며, 함수 구현 한다. (전달 받은 메세지를 처리하는)
 e. Dismiss 하기 전에 delegate의 함수를 호출한다 (전달할 메세지를 args 로 전달)
+```
 
 - segueway 로 데이터 전달하기
 
